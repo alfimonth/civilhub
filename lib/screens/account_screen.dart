@@ -69,7 +69,7 @@ class AccountScreen extends StatelessWidget {
                           width: 100, // Tentukan lebar gambar
                           height: 80, // Tentukan tinggi gambar
                           child: Image.network(
-                            'https://example.com/post_image.jpg',
+                            'https://picsum.photos/200/300',
                             fit: BoxFit.cover,
                           ),
                         ),
