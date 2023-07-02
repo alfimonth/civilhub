@@ -48,6 +48,25 @@ class FeedScreen extends StatelessWidget {
                             width: double.infinity,
                             height: 200,
                             fit: BoxFit.cover,
+                            errorBuilder: (context, exception, stackTrace) {
+                              // Custom error handling for image loading error
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        16), // Tambahkan padding di atas dan di bawah
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.network_check, size: 64),
+                                      SizedBox(height: 16),
+                                      Text(
+                                          'Gambar gagal di muat, periksa jaringan anda'),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                           Positioned(
                             top: 8,

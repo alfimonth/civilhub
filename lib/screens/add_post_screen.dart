@@ -27,8 +27,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Posting Berhasil'),
-          content: Text('Postingan Anda berhasil diunggah.'),
+          title: Text('Upload Berhasil'),
+          content: Text('Aduan Berhasil di unggah'),
           actions: [
             TextButton(
               onPressed: () {
@@ -42,6 +42,28 @@ class _AddPostScreenState extends State<AddPostScreen> {
               child: Text('OK'),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void _showUploadAnimation() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text('Mengunggah aduan...'),
+              ],
+            ),
+          ),
         );
       },
     );
@@ -78,6 +100,10 @@ class _AddPostScreenState extends State<AddPostScreen> {
           image: fileName,
           isAnonymous: _sendToAnonymous,
         );
+
+        // Tambahkan animasi sebelum muncul notifikasi
+        _showUploadAnimation();
+
         await PostService().simpan(post);
         _showAlertDialog(); // atau _showSnackBar();
       } else {
