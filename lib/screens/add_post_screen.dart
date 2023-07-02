@@ -3,6 +3,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
+import '../models/post.dart';
+import '../services/post_service.dart';
+import 'dart:convert';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -15,6 +18,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
   TextEditingController _captionController = TextEditingController();
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+
+  PostService _postService = PostService();
+
+
+  void _simpanPost() async {
+//
+  }
 
   @override
   void initState() {
@@ -70,7 +80,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Post'),
+        title: Text('Buat Aduan'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -117,7 +127,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               SizedBox(height: 16),
               Text(
-                'Caption',
+                'Detail Aduan',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
@@ -144,12 +154,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ),
               SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
-                  String caption = _captionController.text;
-                  bool sendToAnonymous = _sendToAnonymous;
-
-                  // Lakukan sesuatu dengan data yang dikirim, misalnya menyimpan ke database
-                },
+                onPressed: _simpanPost,
                 child: Text('Submit'),
               ),
               SizedBox(height: 16),

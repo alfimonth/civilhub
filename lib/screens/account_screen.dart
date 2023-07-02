@@ -52,7 +52,7 @@ class AccountScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              'Riwayat Posting',
+              'Riwayat Aduan',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
@@ -87,6 +87,13 @@ class AccountScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
+            ListTile(
+              leading: Icon(Icons.mail),
+              title: Text('Semua Aduan'),
+              onTap: () {
+                // Tambahkan logika untuk menangani aksi ubah password
+              },
+            ),
             ListTile(
               leading: Icon(Icons.lock),
               title: Text('Ubah Password'),

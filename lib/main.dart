@@ -49,11 +49,11 @@ class _MainScreenState extends State<MainScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Postingan',
+            label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            label: 'Tambahkan',
+            label: 'Buat Aduan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
