@@ -5,7 +5,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io';
 import '../models/post.dart';
 import '../services/post_service.dart';
-import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../main.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -21,9 +22,68 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   PostService _postService = PostService();
 
+  void _showAlertDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Posting Berhasil'),
+          content: Text('Postingan Anda berhasil diunggah.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainScreen()),
+                  (route) => false,
+                );
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void _simpanPost() async {
-//
+    String content = _captionController.text;
+    String fileName = _imageUrl != null ? _imageUrl!.split('/').last : '';
+
+    // Mengunggah gambar jika ada
+    if (_imageUrl != null) {
+      File imageFile = File(_imageUrl!);
+
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(
+            'http://192.168.43.241:8000/api/upload'), // Ganti dengan URL endpoint upload gambar di API Laravel
+      );
+
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'image',
+          imageFile.path,
+        ),
+      );
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        print('Gambar berhasil diunggah');
+        Post post = new Post(
+          userId: 1,
+          content: content,
+          image: fileName,
+          isAnonymous: _sendToAnonymous,
+        );
+        await PostService().simpan(post);
+        _showAlertDialog(); // atau _showSnackBar();
+      } else {
+        print('Gagal mengunggah gambar. Status code: ${response.statusCode}');
+      }
+    }
   }
 
   @override
