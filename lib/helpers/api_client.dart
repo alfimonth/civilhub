@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 
 final Dio dio = Dio(BaseOptions(
-  // baseUrl: 'https://4c0b-114-10-19-255.ngrok-free.app/api/',
   baseUrl: 'http://192.168.43.241:8000/api/',
+  // baseUrl: 'http://172.19.128.24:8000/api/',
   connectTimeout: Duration(seconds: 30),
   receiveTimeout: Duration(seconds: 30),
 ));
