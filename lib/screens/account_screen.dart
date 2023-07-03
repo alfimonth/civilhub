@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
 
 class AccountScreen extends StatelessWidget {
   @override
@@ -60,7 +61,7 @@ class AccountScreen extends StatelessWidget {
               height: 120, // Tentukan tinggi card
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5, // Ganti dengan jumlah postingan yang sebenarnya
+                itemCount: 4, // Ganti dengan jumlah postingan yang sebenarnya
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     child: Column(
@@ -71,6 +72,20 @@ class AccountScreen extends StatelessWidget {
                           child: Image.network(
                             'https://picsum.photos/200/300',
                             fit: BoxFit.cover,
+                            errorBuilder: (context, exception, stackTrace) {
+                              // Custom error handling for image loading error
+                              return Padding(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.network_check, size: 32),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
                         Padding(
@@ -105,7 +120,12 @@ class AccountScreen extends StatelessWidget {
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
-                // Tambahkan logika untuk menangani aksi logout
+                // Tambahkan logika untuk menangani aksi logout di sini
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (route) => false,
+                );
               },
             ),
           ],
