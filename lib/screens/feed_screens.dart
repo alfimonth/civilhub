@@ -13,6 +13,7 @@ class FeedScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('CivilHub'),
+        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder(
         stream: getList(),
@@ -44,6 +45,7 @@ class FeedScreen extends StatelessWidget {
                         children: [
                           Image.network(
                             'http://192.168.43.241:8000/storage/' +
+                                // 'http://172.19.128.24:8000/storage/' +
                                 snapshot.data[index].image,
                             width: double.infinity,
                             height: 200,
@@ -109,8 +111,17 @@ class FeedScreen extends StatelessWidget {
                           Text(
                             snapshot.data[index].isAnonymous
                                 ? 'Anonim'
-                                : 'Pengadu ' +
-                                    snapshot.data[index].userId.toString(),
+                                : snapshot.data[index].userId == 2
+                                    ? 'Kharisma'
+                                    : snapshot.data[index].userId == 1
+                                        ? 'Ganang Aji'
+                                        : snapshot.data[index].userId == 3
+                                        ? 'Alfimonth'
+                                        : snapshot.data[index].userId == 4
+                                        ? 'Villa Yudah'
+                                        : 'Pengadu ' +
+                                            snapshot.data[index].userId
+                                                .toString(),
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),

@@ -7,6 +7,9 @@ import '../models/post.dart';
 import '../services/post_service.dart';
 import 'package:http/http.dart' as http;
 import '../main.dart';
+import '../helpers/user_info.dart';
+import '../services/post_service.dart';
+import '../models/post.dart';
 
 class AddPostScreen extends StatefulWidget {
   @override
@@ -14,6 +17,8 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
+  late String userId;
+
   String? _imageUrl;
   bool _sendToAnonymous = false;
   TextEditingController _captionController = TextEditingController();
@@ -21,6 +26,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
       FlutterLocalNotificationsPlugin();
 
   PostService _postService = PostService();
+
+  UserInfo userInfo = UserInfo();
+  Future<Map<String, String>> _getUserInfo() async {
+    String? user_id = await userInfo.getUserID();
+    setState(() {
+      userId = user_id ?? '';
+    });
+    return {
+      'user_id': user_id ?? '',
+    };
+  }
 
   void _showAlertDialog() {
     showDialog(
@@ -70,6 +86,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   }
 
   void _simpanPost() async {
+    await _getUserInfo();
     String content = _captionController.text;
     String fileName = _imageUrl != null ? _imageUrl!.split('/').last : '';
 
@@ -79,8 +96,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse(
-            'http://192.168.43.241:8000/api/upload'), // Ganti dengan URL endpoint upload gambar di API Laravel
+        Uri.parse('http://192.168.43.241:8000/api/upload'),
+        //'http://172.19.128.24:8000/api/upload'), // Ganti dengan URL endpoint upload gambar di API Laravel
       );
 
       request.files.add(
@@ -95,7 +112,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       if (response.statusCode == 200) {
         print('Gambar berhasil diunggah');
         Post post = new Post(
-          userId: 1,
+          userId: int.parse(userId),
           content: content,
           image: fileName,
           isAnonymous: _sendToAnonymous,
@@ -167,6 +184,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Buat Aduan'),
+        automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'main.dart'; // Ganti dengan halaman utama aplikasi Anda
+import 'main.dart';
+import 'screens/login.dart';
+import 'helpers/user_info.dart'; // Ganti dengan halaman utama aplikasi Anda
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -14,12 +16,23 @@ class _SplashScreenState extends State<SplashScreen> {
     _startTimer();
   }
 
+  var token = UserInfo().getToken();
+
   void _startTimer() {
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => MainScreen()),
-      );
+    Timer(Duration(seconds: 3), () async {
+      var token = await UserInfo().getToken();
+
+      if (token != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => MainScreen()),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+        );
+      }
     });
   }
 

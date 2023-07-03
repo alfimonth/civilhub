@@ -16,12 +16,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Padding(
+      child: Container(
         padding: EdgeInsets.all(16.0),
+        height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 100.0),
             Image.asset(
               'assets/logo.png', // Ganti dengan path ke logo Anda
               width: 100,
