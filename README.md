@@ -1,16 +1,10 @@
 # civilhub
 
-A new Flutter project.
+sebuah layananan aduan masyarakat berbasis Media Sosial.
 
-## Getting Started
+![image](https://github.com/alfimonth/civilhub/assets/96417922/b47a29b1-a07c-49f0-8984-77e7833a24a6)
 
-This project is a starting point for a Flutter application.
+![image](https://github.com/alfimonth/civilhub/assets/96417922/d12975ff-588b-444e-bb9c-cf4a0ee1004b)
 
-A few resources to get you started if this is your first Flutter project:
+![image](https://github.com/alfimonth/civilhub/assets/96417922/3d7cf3c0-8936-481d-a12e-4153873f3701)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
