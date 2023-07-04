@@ -46,7 +46,18 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Akun'),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 24,
+              height: 24,
+              color: Colors.white,
+            ),
+            SizedBox(width: 8),
+            Text('Akun'),
+          ],
+        ),
         automaticallyImplyLeading: false,
       ),
       body: Padding(

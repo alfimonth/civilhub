@@ -219,7 +219,18 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Buat Aduan'),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/logo.png',
+              width: 24,
+              height: 24,
+              color: Colors.white,
+            ),
+            SizedBox(width: 8),
+            Text('Buat Aduan'),
+          ],
+        ),
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
