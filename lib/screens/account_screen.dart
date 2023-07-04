@@ -133,10 +133,6 @@ class AccountScreen extends StatelessWidget {
                           scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data.length,
                           itemBuilder: (BuildContext context, int index) {
-                            // Memeriksa apakah id_user tidak sama dengan user_id
-                            // print(snapshot.data['user_id']);
-                            // print(snapshot.data[index].userId);
-
                             if (snapshot.data[index].userId !=
                                 int.parse(userId)) {
                               return Container();
@@ -147,31 +143,37 @@ class AccountScreen extends StatelessWidget {
                                   Container(
                                     width: 200,
                                     height: 100,
-                                    child: Image.network(
-                                      'http://192.168.43.241:8000/storage/' +
-                                          // 'http://172.19.128.24:8000/storage/' +
-                                          snapshot.data[index]
-                                              .image, // Ubah dengan atribut gambar yang sesuai dari respons API
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, exception, stackTrace) {
-                                        // Custom error handling for image loading error
-                                        return Padding(
-                                          padding:
-                                              EdgeInsets.symmetric(vertical: 8),
-                                          child: Center(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(Icons.network_check,
-                                                    size: 32),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
+                                    child: snapshot.data[index].image !=
+                                            'blank.png'
+                                        ? Image.network(
+                                            'http://192.168.43.241:8000/storage/' +
+                                                snapshot.data[index].image,
+                                            fit: BoxFit.cover,
+                                            errorBuilder: (context, exception,
+                                                stackTrace) {
+                                              // Custom error handling for image loading error
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 8),
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(
+                                                          Icons.signal_wifi_off,
+                                                          size: 32),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        : Icon(Icons.hide_image,
+                                            size: 64,
+                                            color: Colors
+                                                .grey), // Menampilkan ikon "image_off" jika image adalah "blank.png"
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -179,8 +181,7 @@ class AccountScreen extends StatelessWidget {
                                       _truncateCaption(
                                           snapshot.data[index].content),
                                       style: TextStyle(fontSize: 14),
-                                      textAlign: TextAlign
-                                          .left, // Tambahkan properti textAlign
+                                      textAlign: TextAlign.left,
                                     ),
                                   ),
                                 ],

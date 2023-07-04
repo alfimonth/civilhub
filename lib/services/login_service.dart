@@ -21,14 +21,14 @@ class LoginService {
       await UserInfo().setToken("alfi@gmail.com");
       await UserInfo().setUserID("3");
       await UserInfo().setUsername("Alfimonth");
-      await UserInfo().setProfileImage("3.jpg");
+      await UserInfo().setProfileImage("3.gif");
       isLogin = true;
     }
     if (username == 'vila@gmail.com' && password == '12345678') {
       await UserInfo().setToken("vila@gmail.com");
       await UserInfo().setUserID("4");
-      await UserInfo().setUsername("Vill Yudah");
-      await UserInfo().setProfileImage("1.jpg");
+      await UserInfo().setUsername("Villa Yudah");
+      await UserInfo().setProfileImage("4.jpg");
       isLogin = true;
     }
     return isLogin;

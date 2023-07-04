@@ -88,7 +88,30 @@ class _AddPostScreenState extends State<AddPostScreen> {
   void _simpanPost() async {
     await _getUserInfo();
     String content = _captionController.text;
-    String fileName = _imageUrl != null ? _imageUrl!.split('/').last : '';
+    String fileName =
+        _imageUrl != null ? _imageUrl!.split('/').last : 'blank.png';
+
+    // Validasi not empty pada detail aduan
+    if (content.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Peringatan'),
+            content: Text('Detail aduan tidak boleh kosong'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
 
     // Mengunggah gambar jika ada
     if (_imageUrl != null) {
@@ -111,22 +134,35 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
       if (response.statusCode == 200) {
         print('Gambar berhasil diunggah');
-        Post post = new Post(
-          userId: int.parse(userId),
-          content: content,
-          image: fileName,
-          isAnonymous: _sendToAnonymous,
-        );
+        //   Post post = new Post(
+        //     userId: int.parse(userId),
+        //     content: content,
+        //     image: fileName,
+        //     isAnonymous: _sendToAnonymous,
+        //   );
 
-        // Tambahkan animasi sebelum muncul notifikasi
-        _showUploadAnimation();
+        //   // Tambahkan animasi sebelum muncul notifikasi
+        //   _showUploadAnimation();
 
-        await PostService().simpan(post);
-        _showAlertDialog(); // atau _showSnackBar();
-      } else {
-        print('Gagal mengunggah gambar. Status code: ${response.statusCode}');
+        //   await PostService().simpan(post);
+        //   _showAlertDialog(); // atau _showSnackBar();
+        // } else {
+        //   print('Gagal mengunggah gambar. Status code: ${response.statusCode}');
       }
     }
+
+    Post post = new Post(
+      userId: int.parse(userId),
+      content: content,
+      image: fileName,
+      isAnonymous: _sendToAnonymous,
+    );
+
+    // Tambahkan animasi sebelum muncul notifikasi
+    _showUploadAnimation();
+
+    await PostService().simpan(post);
+    _showAlertDialog(); // atau _showSnackBar();
   }
 
   @override
@@ -193,7 +229,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Upload Gambar',
+                'Gambar Aduan(opsional)',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 8),
@@ -237,10 +273,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
               SizedBox(height: 8),
               TextField(
                 controller: _captionController,
+                maxLines:
+                    5, // Atur maxLines ke null agar TextField dapat mengubah tingginya secara dinamis
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Masukkan caption...',
+                  hintText: 'Masukkan Aduan...',
                 ),
+                textInputAction: TextInputAction
+                    .newline, // Mengatur aksi tombol "Enter" ke "newline"
               ),
               SizedBox(height: 16),
               Row(

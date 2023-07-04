@@ -157,6 +157,26 @@ class _AllComplaintsScreenState extends State<AllComplaintsScreen> {
                               'http://192.168.43.241:8000/storage/' +
                                   snapshot.data[index].image,
                               fit: BoxFit.cover,
+                              errorBuilder: (context, exception, stackTrace) {
+                                // Custom error handling for image loading error
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical:
+                                          16), // Tambahkan padding di atas dan di bawah
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(Icons.signal_wifi_off, size: 64),
+                                        SizedBox(height: 16),
+                                        Text(
+                                            'Gambar gagal di muat, periksa jaringan anda'),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                           Positioned(
