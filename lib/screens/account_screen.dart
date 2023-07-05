@@ -205,7 +205,7 @@ class AccountScreen extends StatelessWidget {
                 SizedBox(height: 16),
                 ListTile(
                   leading: Icon(Icons.mail),
-                  title: Text('Semua Aduan'),
+                  title: Text('Aduan saya'),
                   onTap: () {
                     Navigator.pushAndRemoveUntil(
                       context,

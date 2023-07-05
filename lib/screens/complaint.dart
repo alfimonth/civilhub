@@ -108,7 +108,7 @@ class _AllComplaintsScreenState extends State<AllComplaintsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Semua Aduan'),
+        title: Text('Aduan Saya'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {

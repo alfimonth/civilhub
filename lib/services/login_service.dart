@@ -28,7 +28,7 @@ class LoginService {
       await UserInfo().setToken("vila@gmail.com");
       await UserInfo().setUserID("4");
       await UserInfo().setUsername("Villa Yudah");
-      await UserInfo().setProfileImage("4.jpg");
+      await UserInfo().setProfileImage("x.jpg");
       isLogin = true;
     }
     return isLogin;
